@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>FutureLMS - Login</title>
+</head>
+<body>
+
+<section>
+    <div class="row pt-3">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">My Teaching</h1>
+
+            <div th:each="course : ${courses}">
+                <h3 class="text-center" th:text="${course.getTitle()}">Course Title</h3>
+            </div>
+
+            <!-- ADD COURSE FORM -->
+            <hr>
+            <div class="text-center col-md-6 offset-md-3">
+                <h2 class="text-center">Add Course</h2>
+                <form method="post" th:object="${courseDto}" th:action="@{/tutor/new/course}" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="inputGroup-sizing-default">Title</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" th:field="*{title}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="inputGroup-sizing-default">Category</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" th:field="*{category}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text bg-primary text-light" for="inputGroupFile01">Banner</label>
+                        <input type="file" class="form-control" id="inputGroupFile01" th:field="*{image}">
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Create</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ADD TOPIC FORM -->
+            <hr>
+            <div class="text-center col-md-6 offset-md-3">
+                <h2 class="text-center">Add Topic</h2>
+                <form method="post" th:object="${topicDto}" th:action="@{/tutor/new/topic}">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Course</label>
+                        <select class="form-select" id="inputGroupSelect01" th:field="*{courseId}">
+                            <option th:each="course : ${courses}" th:value="${course.getId()}"
+                                    th:text="${course.getTitle()}">Option</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="inputGroup-sizing-default">Title</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" th:field="*{title}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="inputGroup-sizing-default">YouTube</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" th:field="*{video}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="*{content}">
+
+                        </textarea>
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+
+</body>
+</html>

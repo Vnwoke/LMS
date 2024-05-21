@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>FutureLMS - Login</title>
+</head>
+<body>
+
+<section>
+    <div class="row pt-3">
+        <h1 class="text-center">Courses</h1>
+        <div class="col-md-10 offset-md-1">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+                <div class="col" th:each="course : ${courses}">
+                    <div class="card h-100">
+                        <img th:src="'/courses/' + ${course.getSlug()} + '.jpg'" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div>
+                                <a th:href="'/course/' + ${course.getSlug()}">
+                                <button type="button" class="btn btn-primary">Details</button></a>
+                                <button type="button" class="btn btn-danger" sec:authorize="isAuthenticated()">Enrol</button>
+                            </div>
+                            <h5 class="card-title pt-3" th:text="${course.getTitle()}">Course title</h5>
+                            <p class="card-text" th:text="${course.getCategory()}">Category</p>
+                            <p class="card-text" th:text="'Tutor:' + ${course.getTutor().getFullName()}">Category</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
